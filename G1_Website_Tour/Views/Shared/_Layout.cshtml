@@ -1,0 +1,135 @@
+﻿@using G1_Website_Tour.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="position: relative; margin-bottom: 0;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Tour Travel Việt Name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Du lịch", "Index", "Home")</li>
+                    @foreach (Type_Tour item in (List<Type_Tour>)ViewBag.menu)
+                    {
+                        <li>@Html.ActionLink(item.type_name, "Index", "Home", new { id = item.type_id }, null)</li>
+                    }
+                    <li>@Html.ActionLink("Cart", "Index", "Cart")</li>
+                    <li>@Html.ActionLink("Đăng ký", "Register", "Login")</li>
+                    <li>
+                        @{
+                            if (Session["customer"] != null)
+                            {
+                                @Html.ActionLink("Lịch sử mua hàng", "HistoryOrder", "Home")
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Đăng nhập", "Index", "Login")
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr style="clear:both" />
+        @*<footer>
+                <p>&copy; @DateTime.Now.Year - G1_Website_</p>
+            </footer>*@
+    </div>
+    
+    <!-- Start-footer -->
+    <div id="footer">
+        <div class="container">
+            <!--Bắt Đầu Nội Dung Giới Thiệu-->
+            <div class="noi-dung about">
+                <h2>Về Chúng Tôi</h2>
+                <p>
+                    Responsible travel has always been at the core of what we do.
+                    Travelling with us means not just better trips for you, it’s better for local communities,
+                    better for wildlife and better for the planet.
+                </p>
+                <ul class="social-icon">
+                    <li><a href=""><img src="~/Content/images/ic-fb.png" alt=""></a></li>
+                    <li><a href=""><img src="~/Content/images/ic-ins.png" alt=""></a></li>
+                    <li><a href=""><img src="~/Content/images/ic-tw.png" alt=""></a></li>
+                    <li><a href=""><img src="~/Content/images/ic-yt.png" alt=""></a></li>
+                </ul>
+            </div>
+            <!--Kết Thúc Nội Dung Giới Thiệu-->
+            <!--Bắt Đầu Nội Dung Đường Dẫn-->
+            <div class="noi-dung links">
+                <h2>Đường Dẫn</h2>
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Danh sách Tour</a></li>
+                    <li><a href="#">Tin tức du lịch</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </div>
+            <!--Kết Thúc Nội Dung Đường Dẫn-->
+            <!--Bắt Đâu Nội Dung Liên Hệ-->
+            <div class="noi-dung contact">
+                <h2>Thông Tin Liên Hệ</h2>
+                <ul class="info">
+                    <li>
+                        <span><i class="fa fa-map-marker"></i></span>
+                        <span>
+                            Đường Số xxx, Quận xxx<br />
+                            Thành Phố xxx, Việt Nam
+                        </span>
+                    </li>
+                    <li>
+                        <span><i class="fa fa-phone"></i></span>
+                        <p>
+                            <a href="#">+84 123 xxx xxx</a>
+                            <br />
+                            <a href="#">+84 456 xxx xxx</a>
+                        </p>
+                    </li>
+                    <li>
+                        <span><i class="fa fa-envelope"></i></span>
+                        <p><a href="#">xxx@gmail.com</a></p>
+                    </li>
+                    <!-- <li>
+                        <form class="form">
+                            <input type="email" class="form__field" placeholder="Đăng Ký Subscribe Email" />
+                            <button type="button" class="btn btn--primary  uppercase">Gửi</button>
+                        </form>
+                    </li> -->
+                </ul>
+            </div>
+            <!--Kết Thúc Nội Dung Liên Hệ-->
+        </div>
+        <div class="bottom-footer">
+            <hr />
+            <p class="copyright text-center" style="text-align: center;">
+                &#169;copyright 2021 - G1 Website Tour
+                <br>
+                Nguyễn Phước Thiên An - Trần Văn An - Đỗ Huỳnh Duy Linh
+                <br>
+                Lê Minh Quang - Phạm Lê Thanh Nga
+            </p>
+        </div>
+    </div>
+    <!-- End-footer -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

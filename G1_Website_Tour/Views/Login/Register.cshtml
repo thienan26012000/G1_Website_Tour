@@ -1,0 +1,127 @@
+﻿@model G1_Website_Tour.Models.user
+
+@{
+    ViewBag.Title = "Register";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
+}
+
+@*<link rel="stylesheet" href="~/Content/style.css" />
+    <link rel="stylesheet" href="~/Content/style-empty-cart.css"/>
+
+    @Html.AntiForgeryToken()
+    <div class="login">
+        <div class="login-triangle"></div>
+
+        <h2 class="login-header">Log in</h2>
+
+        <form method="post" action="~/Login/Index" class="login-container">
+            <p><input type="text" name="username" placeholder="Account"></p>
+            <p><input type="password" name="password" placeholder="Password"></p>
+            <p><input type="submit" value="Log in" class="btn btn-default"></p>
+        </form>
+    </div>*@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Đăng nhập</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Content/login-forms/images/icons/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="~/Content/login-forms/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login-forms/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login-forms/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login-forms/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login-forms/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login-forms/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login-forms/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login-forms/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login-forms/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/login-forms/css/main.css">
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="limiter">
+            <div class="container-login100" style="background-image: url('/Content/login-forms/images/bg-01.jpg');">
+                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-title p-b-49">
+                            Sign Up
+                        </span>
+
+                        <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                            <span class="label-input100">Username</span>
+                            <input class="input100" type="text" name="username" placeholder="Type your username">
+                            <span class="focus-input100" data-symbol="&#xf206;"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input m-b-23" data-validate="Password is required">
+                            <span class="label-input100">Password</span>
+                            <input class="input100" type="password" name="password_user" placeholder="Type your password">
+                            <span class="focus-input100" data-symbol="&#xf190;"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                            <span class="label-input100">First Name</span>
+                            <input class="input100" type="text" name="first_name" placeholder="Type your username">
+                            <span class="focus-input100" data-symbol="&#xf206;"></span>
+                        </div>
+                        <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                            <span class="label-input100">Last Name</span>
+                            <input class="input100" type="text" name="last_name" placeholder="Type your username">
+                            <span class="focus-input100" data-symbol="&#xf206;"></span>
+                        </div>
+                        <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                            <span class="label-input100">Email</span>
+                            <input class="input100" type="text" name="email" placeholder="Type your username">
+                            <span class="focus-input100" data-symbol="&#xf206;"></span>
+                        </div>
+                        <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                            <span class="label-input100">Phone Number</span>
+                            <input class="input100" type="text" name="phone" placeholder="Type your username">
+                            <span class="focus-input100" data-symbol="&#xf206;"></span>
+                        </div>
+                        @*<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                            <span class="label-input100">Active</span>
+                            <input class="input100" type="text" name="active" placeholder="Type your username">
+                            <span class="focus-input100" data-symbol="&#xf206;"></span>
+                        </div>
+                        <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                            <span class="label-input100">User Role</span>
+                            <input class="input100" type="text" name="user_role" placeholder="Type your username">
+                            <span class="focus-input100" data-symbol="&#xf206;"></span>
+                        </div>*@
+
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <button class="login100-form-btn">
+                                    Sign Up
+                                </button>
+                            </div>
+                        </div>        
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div id="dropDownSelect1"></div>
+
+    <script src="~/Content/login-forms/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/login-forms/vendor/animsition/js/animsition.min.js"></script>
+    <script src="~/Content/login-forms/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Content/login-forms/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/login-forms/vendor/select2/select2.min.js"></script>
+    <script src="~/Content/login-forms/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Content/login-forms/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Content/login-forms/vendor/countdowntime/countdowntime.js"></script>
+    <script src="~/Content/login-forms/js/main.js"></script>
+
+</body>
+</html>

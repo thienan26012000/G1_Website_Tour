@@ -1,0 +1,103 @@
+﻿@model G1_Website_Tour.Models.tour
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tour</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name_tour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name_tour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.start_tour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.start_tour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.end_tour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.end_tour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description_tour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description_tour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image_tour)
+        </dt>
+
+        <dd>
+            <img src='~/Content/images/@Html.DisplayFor(model => model.image_tour)' width="150px" height="150px" />
+            @*@Html.DisplayFor(model => model.image_tour)*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vehicle_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vehicle_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfManufacture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfManufacture)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+    @if (TempData["check"] != null)
+    {
+        <p class="alert alert-success" id="successMessage">@TempData["check"]</p>
+    }
+</div>

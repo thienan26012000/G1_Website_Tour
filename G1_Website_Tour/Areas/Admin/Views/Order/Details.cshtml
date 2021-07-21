@@ -1,0 +1,94 @@
+﻿@model IEnumerable<G1_Website_Tour.Models.bill_detail>
+@using G1_Website_Tour.Models;
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/style.css" />
+<h2>Detail - Order</h2>
+
+@{
+    var orderItem = (bill)ViewBag.od;
+}
+<p>
+    ID : @orderItem.id
+    <br />
+    Order Date : @orderItem.create_date
+    <br />
+    Customer : @orderItem.user.first_name @orderItem.user.last_name
+    <br />
+    Staff : @orderItem.Staff.fullname
+    <br />
+    Status : @orderItem.status
+    ( Processing / Delivery / Paid )
+
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Order_Number
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tour_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tour.name_tour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tour.image_tour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            Price * Quantity
+        </th>
+    </tr>
+    @{ int num = 1; double total = 0;}
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @num @{ num++;}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tour_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tour.name_tour)
+            </td>
+            <td>
+                <img src="~/Content/images/@item.tour.image_tour" width="100" height="100" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            <td>
+                @{ var price = String.Format("{0:0,0 VND}", @item.tour.price);}
+                @price
+            </td>
+            <td>
+                @{ var money = String.Format("{0:0,0 VND}", item.tour.price * item.quantity);}
+                @{ total = total + (double)(item.tour.price * item.quantity);}
+                @money
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="7" align="right">
+            @{ var sumtotal = String.Format("{0:0,0 VND}", total);}
+            Total Money : @sumtotal
+        </td>
+    </tr>
+
+</table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

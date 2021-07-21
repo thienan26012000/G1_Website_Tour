@@ -1,0 +1,59 @@
+﻿@model IEnumerable<G1_Website_Tour.Models.bill>
+
+@{
+    ViewBag.Title = "HistoryOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/style.css" />
+<link rel="stylesheet" href="~/Content/style-empty-cart.css">
+
+<h2 style="font-size: 35px; font-weight: 700; margin-top: 35px; margin-bottom: 39px; ">History Order</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.user_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.create_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Staffid)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.user_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.create_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Staffid)
+            </td>
+            <td>
+                @Html.ActionLink("Detail", "DetailsOD", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>
+<button style="float: right; margin-bottom: 10px; width: 167px; height: 35px; background: pink; border-radius: 100px / 50px; border: 1px solid pink;">
+    @Html.ActionLink("Back to List", "Index")
+</button>

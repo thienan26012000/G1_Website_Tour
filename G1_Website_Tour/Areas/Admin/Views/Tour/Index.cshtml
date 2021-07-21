@@ -1,0 +1,82 @@
+﻿@model IEnumerable<G1_Website_Tour.Models.tour>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@{ string contentck;}
+@**Thông báo xóa thành công*@
+@if(TempData["check"] != null )
+{
+    <p class="alert alert-success" id="successMessage">@TempData["check"]</p>
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name_tour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.start_tour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.end_tour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description_tour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image_tour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vehicle_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name_tour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.start_tour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.end_tour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description_tour)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.image_tour)*@
+            <img src="~/Content/images/@item.image_tour" width="150" height="150px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vehicle_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.type_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

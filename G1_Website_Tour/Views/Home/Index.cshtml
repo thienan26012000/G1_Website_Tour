@@ -1,0 +1,36 @@
+﻿@model PagedList.IPagedList<G1_Website_Tour.Models.tour>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/style.css"/>
+<link rel="stylesheet" href="~/Content/style-empty-cart.css"/>
+<div class="listitem">
+    @{string id = ""; }
+    @foreach (var item in Model)
+    {
+        id = ViewBag.id;
+        <div class="myitem">
+            <a href="~/Home/Details?id=@item.id">
+                @Html.DisplayFor(modelItem => item.name_tour)
+                <br>
+            </a>
+            <a href="~/Home/Details?id=@item.id">
+                <img src='~/Content/images/@Html.DisplayFor(modelItem => item.image_tour)' width="200px" height="200px"/>
+            </a>
+            <div style="color:red">
+                @{ var price = String.Format("{0:0,0 VND}", @item.price);}
+                @price
+            </div>
+            <br />
+            <div>
+                <a href="~/Cart/AddItem?id=@item.id">
+                    <img src="~/Content/images/addcart.jpg" width="150px"/>
+                </a>
+            </div>
+        </div>
+                    }
+    @Html.PagedListPager(Model, page => Url.Action("Index", new {page, id = id }));
+</div>

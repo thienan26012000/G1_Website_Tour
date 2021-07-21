@@ -1,0 +1,75 @@
+﻿@model G1_Website_Tour.Models.tour
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/style.css" />
+<link rel="stylesheet" href="~/Content/style-empty-cart.css">
+<h2>Details</h2>
+
+<div>
+    <h4>tour</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name_tour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name_tour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.start_tour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.start_tour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.end_tour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.end_tour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description_tour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description_tour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image_tour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.image_tour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vehicle_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vehicle_id)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

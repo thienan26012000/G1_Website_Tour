@@ -1,0 +1,539 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TourDB_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="total" Type="float" Nullable="false" />
+          <Property Name="create_date" Type="date" />
+          <Property Name="status" Type="int" />
+          <Property Name="Staffid" Type="int" />
+        </EntityType>
+        <EntityType Name="bill_detail">
+          <Key>
+            <PropertyRef Name="bill_id" />
+            <PropertyRef Name="tour_id" />
+          </Key>
+          <Property Name="bill_id" Type="int" Nullable="false" />
+          <Property Name="tour_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="price" Type="float" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="staffid" />
+          </Key>
+          <Property Name="staffid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="nvarchar(max)" />
+          <Property Name="dateofbirth" Type="smalldatetime" />
+          <Property Name="gender" Type="bit" />
+          <Property Name="address" Type="nvarchar(max)" />
+          <Property Name="phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="image" Type="nvarchar(max)" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tour">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_tour" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="start_tour" Type="smalldatetime" />
+          <Property Name="end_tour" Type="smalldatetime" />
+          <Property Name="description_tour" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="image_tour" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="price" Type="bigint" Nullable="false" />
+          <Property Name="vehicle_id" Type="int" Nullable="false" />
+          <Property Name="type_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfManufacture" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="Type_Tour">
+          <Key>
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="type_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="type_name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="password_user" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="active" Type="bit" />
+          <Property Name="user_role" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="vehicle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_vehicle" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="mount_people" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_bill_detail_bill1">
+          <End Role="bill" Type="Self.bill" Multiplicity="1" />
+          <End Role="bill_detail" Type="Self.bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail">
+              <PropertyRef Name="bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_detail_tour">
+          <End Role="tour" Type="Self.tour" Multiplicity="1" />
+          <End Role="bill_detail" Type="Self.bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tour">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail">
+              <PropertyRef Name="tour_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="bill" Type="Self.bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffid" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="Staffid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="bill" Type="Self.bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tour_Type_Tour">
+          <End Role="Type_Tour" Type="Self.Type_Tour" Multiplicity="0..1" />
+          <End Role="tour" Type="Self.tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Tour">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tour_ibfk_1">
+          <End Role="vehicle" Type="Self.vehicle" Multiplicity="1" />
+          <End Role="tour" Type="Self.tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vehicle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="vehicle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TourDB_ModelStoreContainer">
+          <EntitySet Name="bill" EntityType="Self.bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bill_detail" EntityType="Self.bill_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tour" EntityType="Self.tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_Tour" EntityType="Self.Type_Tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vehicle" EntityType="Self.vehicle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_bill_detail_bill1" Association="Self.FK_bill_detail_bill1">
+            <End Role="bill" EntitySet="bill" />
+            <End Role="bill_detail" EntitySet="bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_detail_tour" Association="Self.FK_bill_detail_tour">
+            <End Role="tour" EntitySet="tour" />
+            <End Role="bill_detail" EntitySet="bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_Staff" Association="Self.FK_bill_Staff">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="bill" EntitySet="bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_users" Association="Self.FK_bill_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="bill" EntitySet="bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tour_Type_Tour" Association="Self.FK_tour_Type_Tour">
+            <End Role="Type_Tour" EntitySet="Type_Tour" />
+            <End Role="tour" EntitySet="tour" />
+          </AssociationSet>
+          <AssociationSet Name="tour_ibfk_1" Association="Self.tour_ibfk_1">
+            <End Role="vehicle" EntitySet="vehicle" />
+            <End Role="tour" EntitySet="tour" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TourDB_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TourDB_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bills" EntityType="TourDB_Model.bill" />
+          <EntitySet Name="bill_detail" EntityType="TourDB_Model.bill_detail" />
+          <EntitySet Name="Staffs" EntityType="TourDB_Model.Staff" />
+          <EntitySet Name="sysdiagrams" EntityType="TourDB_Model.sysdiagram" />
+          <EntitySet Name="tours" EntityType="TourDB_Model.tour" />
+          <EntitySet Name="Type_Tour" EntityType="TourDB_Model.Type_Tour" />
+          <EntitySet Name="users" EntityType="TourDB_Model.user" />
+          <EntitySet Name="vehicles" EntityType="TourDB_Model.vehicle" />
+          <AssociationSet Name="FK_bill_detail_bill1" Association="TourDB_Model.FK_bill_detail_bill1">
+            <End Role="bill" EntitySet="bills" />
+            <End Role="bill_detail" EntitySet="bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_Staff" Association="TourDB_Model.FK_bill_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="bill" EntitySet="bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_users" Association="TourDB_Model.FK_bill_users">
+            <End Role="user" EntitySet="users" />
+            <End Role="bill" EntitySet="bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bill_detail_tour" Association="TourDB_Model.FK_bill_detail_tour">
+            <End Role="tour" EntitySet="tours" />
+            <End Role="bill_detail" EntitySet="bill_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tour_Type_Tour" Association="TourDB_Model.FK_tour_Type_Tour">
+            <End Role="Type_Tour" EntitySet="Type_Tour" />
+            <End Role="tour" EntitySet="tours" />
+          </AssociationSet>
+          <AssociationSet Name="tour_ibfk_1" Association="TourDB_Model.tour_ibfk_1">
+            <End Role="vehicle" EntitySet="vehicles" />
+            <End Role="tour" EntitySet="tours" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="bill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="total" Type="Double" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="Staffid" Type="Int32" />
+          <NavigationProperty Name="bill_detail" Relationship="TourDB_Model.FK_bill_detail_bill1" FromRole="bill" ToRole="bill_detail" />
+          <NavigationProperty Name="Staff" Relationship="TourDB_Model.FK_bill_Staff" FromRole="bill" ToRole="Staff" />
+          <NavigationProperty Name="user" Relationship="TourDB_Model.FK_bill_users" FromRole="bill" ToRole="user" />
+        </EntityType>
+        <EntityType Name="bill_detail">
+          <Key>
+            <PropertyRef Name="bill_id" />
+            <PropertyRef Name="tour_id" />
+          </Key>
+          <Property Name="bill_id" Type="Int32" Nullable="false" />
+          <Property Name="tour_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="price" Type="Double" />
+          <NavigationProperty Name="bill" Relationship="TourDB_Model.FK_bill_detail_bill1" FromRole="bill_detail" ToRole="bill" />
+          <NavigationProperty Name="tour" Relationship="TourDB_Model.FK_bill_detail_tour" FromRole="bill_detail" ToRole="tour" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="staffid" />
+          </Key>
+          <Property Name="staffid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateofbirth" Type="DateTime" Precision="0" />
+          <Property Name="gender" Type="Boolean" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="bills" Relationship="TourDB_Model.FK_bill_Staff" FromRole="Staff" ToRole="bill" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tour">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_tour" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="start_tour" Type="DateTime" Precision="0" />
+          <Property Name="end_tour" Type="DateTime" Precision="0" />
+          <Property Name="description_tour" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="image_tour" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Int64" Nullable="false" />
+          <Property Name="vehicle_id" Type="Int32" Nullable="false" />
+          <Property Name="type_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfManufacture" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="bill_detail" Relationship="TourDB_Model.FK_bill_detail_tour" FromRole="tour" ToRole="bill_detail" />
+          <NavigationProperty Name="Type_Tour" Relationship="TourDB_Model.FK_tour_Type_Tour" FromRole="tour" ToRole="Type_Tour" />
+          <NavigationProperty Name="vehicle" Relationship="TourDB_Model.tour_ibfk_1" FromRole="tour" ToRole="vehicle" />
+        </EntityType>
+        <EntityType Name="Type_Tour">
+          <Key>
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="type_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="type_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tours" Relationship="TourDB_Model.FK_tour_Type_Tour" FromRole="Type_Tour" ToRole="tour" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="password_user" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" />
+          <Property Name="user_role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bills" Relationship="TourDB_Model.FK_bill_users" FromRole="user" ToRole="bill" />
+        </EntityType>
+        <EntityType Name="vehicle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_vehicle" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="mount_people" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tours" Relationship="TourDB_Model.tour_ibfk_1" FromRole="vehicle" ToRole="tour" />
+        </EntityType>
+        <Association Name="FK_bill_detail_bill1">
+          <End Type="TourDB_Model.bill" Role="bill" Multiplicity="1" />
+          <End Type="TourDB_Model.bill_detail" Role="bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bill">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail">
+              <PropertyRef Name="bill_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_Staff">
+          <End Type="TourDB_Model.Staff" Role="Staff" Multiplicity="0..1" />
+          <End Type="TourDB_Model.bill" Role="bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staffid" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="Staffid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_users">
+          <End Type="TourDB_Model.user" Role="user" Multiplicity="1" />
+          <End Type="TourDB_Model.bill" Role="bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bill_detail_tour">
+          <End Type="TourDB_Model.tour" Role="tour" Multiplicity="1" />
+          <End Type="TourDB_Model.bill_detail" Role="bill_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tour">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="bill_detail">
+              <PropertyRef Name="tour_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tour_Type_Tour">
+          <End Type="TourDB_Model.Type_Tour" Role="Type_Tour" Multiplicity="0..1" />
+          <End Type="TourDB_Model.tour" Role="tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_Tour">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tour_ibfk_1">
+          <End Type="TourDB_Model.vehicle" Role="vehicle" Multiplicity="1" />
+          <End Type="TourDB_Model.tour" Role="tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vehicle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tour">
+              <PropertyRef Name="vehicle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TourDB_ModelStoreContainer" CdmEntityContainer="TourDB_Entities">
+          <EntitySetMapping Name="bills">
+            <EntityTypeMapping TypeName="TourDB_Model.bill">
+              <MappingFragment StoreEntitySet="bill">
+                <ScalarProperty Name="Staffid" ColumnName="Staffid" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bill_detail">
+            <EntityTypeMapping TypeName="TourDB_Model.bill_detail">
+              <MappingFragment StoreEntitySet="bill_detail">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="tour_id" ColumnName="tour_id" />
+                <ScalarProperty Name="bill_id" ColumnName="bill_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="TourDB_Model.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="dateofbirth" ColumnName="dateofbirth" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="staffid" ColumnName="staffid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TourDB_Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tours">
+            <EntityTypeMapping TypeName="TourDB_Model.tour">
+              <MappingFragment StoreEntitySet="tour">
+                <ScalarProperty Name="DateOfManufacture" ColumnName="DateOfManufacture" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="vehicle_id" ColumnName="vehicle_id" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="image_tour" ColumnName="image_tour" />
+                <ScalarProperty Name="description_tour" ColumnName="description_tour" />
+                <ScalarProperty Name="end_tour" ColumnName="end_tour" />
+                <ScalarProperty Name="start_tour" ColumnName="start_tour" />
+                <ScalarProperty Name="name_tour" ColumnName="name_tour" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_Tour">
+            <EntityTypeMapping TypeName="TourDB_Model.Type_Tour">
+              <MappingFragment StoreEntitySet="Type_Tour">
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="TourDB_Model.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="password_user" ColumnName="password_user" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vehicles">
+            <EntityTypeMapping TypeName="TourDB_Model.vehicle">
+              <MappingFragment StoreEntitySet="vehicle">
+                <ScalarProperty Name="mount_people" ColumnName="mount_people" />
+                <ScalarProperty Name="name_vehicle" ColumnName="name_vehicle" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

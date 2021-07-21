@@ -1,0 +1,95 @@
+﻿@model IEnumerable<G1_Website_Tour.Models.CartItem>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/style-empty-cart.css" />
+
+@if (Model == null)
+{
+    @*<div>Your cart is Empty</div>*@
+
+    <!-- Empty cart start -->
+    <div class="container-empty-cart">
+        <div class="title-empty-cart">
+            <h2>Giỏ hàng</h2>
+        </div>
+        <div class="content-empty-cart">
+            <div class="image-empty-cart">
+                <img src="~/Content/images/empty-booking.png" alt="">
+            </div>
+            <div class="note-empty-cart">
+                <h3>Giỏ hàng đang trống</h3>
+                <h4>Tham khảo vài dịch vụ hấp dẫn có thể bạn sẽ thích</h4>
+            </div>
+        </div>
+    </div>
+    <!-- Empty cart end -->
+}
+else
+{
+    int count = 1;
+    <table class="table">
+        <tr>
+            <th>Order-Number</th>
+            <th>
+                ProductId
+            </th>
+            <th>ProductName</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th>Price*Quantity</th>
+            <th>Action</th>
+        </tr>
+        @{ double total = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@count @{count++;}</td>
+                <td>@item.tours.id</td>
+                <td>@item.tours.name_tour</td>
+                <td>
+                    <img src="~/Content/images/@item.tours.image_tour" width="100px" />
+                </td>
+                <td>
+                    @{ var price = string.Format("{0:0,0 VND}", item.tours.price);}@price
+                </td>
+
+                <td>
+                    <b style="font-size: 24px;">
+                        @Html.ActionLink("-", "UpdateItem", "Cart", new { id = item.tours.id, quantity = item.quantity - 1 }, null)
+                    </b>
+                    <input type="text" name="quantity" value="@item.quantity" maxlength="2" size="2" />
+                    <b style="font-size: 24px">
+                        @Html.ActionLink("+", "UpdateItem", "Cart", new { id = item.tours.id, quantity = item.quantity + 1 }, null)
+                    </b>
+                    @*@Html.DisplayFor(modelItem => item.quantity)*@
+                </td>
+
+                <td>
+                    <div style="color:red">
+                        @{ var money = String.Format("{0:0,0 VND}", item.tours.price * item.quantity);}
+                        @{ total = total + (double)(item.tours.price * item.quantity);}
+                        @money
+                    </div>
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteItem", new { id = item.tours.id })
+                </td>
+            </tr>
+        }
+        <tr class="text-right">
+            <td colspan="8">
+                @Html.ActionLink("Order", "Order", "Cart")
+                <div style="color:red">
+                    @{ var totalmoney = String.Format("{0:0,0 VND}", total);}
+                    Total Money : @totalmoney
+                </div>
+            </td>
+        </tr>
+    </table>
+}

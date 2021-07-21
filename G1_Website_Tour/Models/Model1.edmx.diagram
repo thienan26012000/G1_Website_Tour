@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="57716ee58fe543dea45ab928689ba015" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="TourDB_Model.bill" Width="1.5" PointX="3" PointY="11.25" />
+        <EntityTypeShape EntityType="TourDB_Model.bill_detail" Width="1.5" PointX="5.25" PointY="1.625" />
+        <EntityTypeShape EntityType="TourDB_Model.Staff" Width="1.5" PointX="0.75" PointY="13" />
+        <EntityTypeShape EntityType="TourDB_Model.sysdiagram" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="TourDB_Model.tour" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="TourDB_Model.Type_Tour" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="TourDB_Model.user" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="TourDB_Model.vehicle" Width="1.5" PointX="0.75" PointY="1.875" />
+        <AssociationConnector Association="TourDB_Model.FK_bill_detail_bill1" />
+        <AssociationConnector Association="TourDB_Model.FK_bill_Staff" />
+        <AssociationConnector Association="TourDB_Model.FK_bill_users" />
+        <AssociationConnector Association="TourDB_Model.FK_bill_detail_tour" />
+        <AssociationConnector Association="TourDB_Model.FK_tour_Type_Tour" />
+        <AssociationConnector Association="TourDB_Model.tour_ibfk_1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
